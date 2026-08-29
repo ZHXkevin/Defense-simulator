@@ -1,0 +1,113 @@
+<!-- pages/index/index.wxml -->
+
+<view class="container">
+  <!-- 头部 -->
+  <view class="header">
+    <view class="header-left">
+      <text class="title">🎓 答辩汇报模拟器</text>
+      <text class="subtitle">AI多智能体协作 · 备战系统</text>
+    </view>
+    <navigator url="/pages/history/history" class="history-link">
+      📚 历史记录
+    </navigator>
+  </view>
+
+  <!-- ===== 恢复训练弹窗 ===== -->
+  <view class="resume-dialog" wx:if="{{showResumeDialog}}">
+    <view class="resume-mask" bindtap="discardTraining"></view>
+    <view class="resume-content">
+      <text class="resume-icon">🔄</text>
+      <text class="resume-title">发现未完成的训练</text>
+      <text class="resume-info">文档：{{resumeData.fileName || '未命名'}}</text>
+      <text class="resume-info">上次进度：{{resumeData.lastUpdate || '未知'}}</text>
+      <view class="resume-actions">
+        <button class="resume-btn discard" bindtap="discardTraining">放弃</button>
+        <button class="resume-btn continue" bindtap="resumeTraining">继续</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 场景选择 -->
+  <view class="section">
+    <text class="section-title">📌 选择场景</text>
+    <picker mode="selector" range="{{modes}}" value="{{modeIndex}}" bindchange="onModeChange">
+      <view class="picker">{{modes[modeIndex]}}</view>
+    </picker>
+  </view>
+
+  <!-- 难度设置 -->
+  <view class="section">
+    <text class="section-title">⚙️ 难度设置</text>
+    <picker mode="selector" range="{{difficulties}}" value="{{difficultyIndex}}" bindchange="onDifficultyChange">
+      <view class="picker">{{difficulties[difficultyIndex]}}</view>
+    </picker>
+  </view>
+
+  <!-- 用户ID -->
+  <view class="section">
+    <text class="section-title">👤 用户ID</text>
+    <input class="input" value="{{userId}}" bindinput="onUserIdInput" placeholder="输入你的ID，系统将记住学习记录" />
+  </view>
+
+  <!-- 第一个文件：论文文档 -->
+  <view class="section">
+    <text class="section-title">📄 上传论文文档</text>
+    
+    <view class="upload-status" wx:if="{{contentName}}">
+      <text class="status-text">✅ 已选择：{{contentName}}</text>
+      <text class="status-size">（{{contentSize}} KB）</text>
+    </view>
+    <view class="upload-status" wx:else>
+      <text class="status-text">📎 请选择文件</text>
+    </view>
+
+    <button class="upload-btn" bindtap="chooseFile" data-target="content" disabled="{{contentUploading}}">
+      {{contentUploading ? '⏳ 上传中...' : '📤 选择论文文档'}}
+    </button>
+
+    <view class="content-preview" wx:if="{{content}}">
+      <text class="preview-label">📖 已解析内容（前100字）：</text>
+      <text class="preview-text">{{contentPreview}}...</text>
+    </view>
+  </view>
+
+  <!-- 第二个文件：评分标准 -->
+  <view class="section">
+    <text class="section-title">📄 上传评分标准（可选）</text>
+    
+    <view class="upload-status" wx:if="{{standardName}}">
+      <text class="status-text">✅ 已选择：{{standardName}}</text>
+      <text class="status-size">（{{standardSize}} KB）</text>
+    </view>
+    <view class="upload-status" wx:else>
+      <text class="status-text">📎 请选择文件</text>
+    </view>
+
+    <button class="upload-btn" bindtap="chooseFile" data-target="standard" disabled="{{standardUploading}}">
+      {{standardUploading ? '⏳ 上传中...' : '📤 选择评分标准'}}
+    </button>
+
+    <view class="content-preview" wx:if="{{standard}}">
+      <text class="preview-label">📖 已解析内容（前100字）：</text>
+      <text class="preview-text">{{standardPreview}}...</text>
+    </view>
+  </view>
+
+  <!-- 补充说明 -->
+  <view class="section">
+    <text class="section-title">💡 补充说明（可选）</text>
+    <textarea
+      class="textarea"
+      value="{{otherInstruction}}"
+      bindinput="onOtherInstructionInput"
+      placeholder="例如：请重点关注第三章的内容、请多出一些关于实验设计的问题..."
+      maxlength="400"
+      auto-height
+    />
+  </view>
+
+  <!-- 生成按钮 -->
+  <button class="primary-btn" bindtap="generateQuestions" disabled="{{loading || !content}}">
+    {{loading ? '⏳ 生成中...' : '📝 生成问题'}}
+  </button>
+</view>

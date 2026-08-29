@@ -1,0 +1,231 @@
+/* pages/history/history.wxss */
+
+.container {
+  padding: 20rpx 30rpx 60rpx;
+  background: #F5F7FA;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+}
+
+.header-left {
+  display: flex;
+  align-items: baseline;
+  gap: 16rpx;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1A2332;
+}
+
+.count {
+  font-size: 26rpx;
+  color: #999;
+}
+
+.header-actions {
+  flex-shrink: 0;
+}
+
+.manage-btn {
+  padding: 8rpx 24rpx;
+  background: #E8ECF1;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  color: #1A2332;
+}
+
+.manage-btn:active {
+  background: #d5d9e0;
+}
+
+/* ===== 统计卡片 ===== */
+.stats {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 20rpx;
+}
+.stat-item {
+  flex: 1;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 20rpx;
+  text-align: center;
+}
+.stat-number { display: block; font-size: 40rpx; font-weight: 700; color: #4A6CF7; }
+.stat-label { font-size: 22rpx; color: #999; margin-top: 4rpx; }
+
+/* ===== 记录列表 ===== */
+.record-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  padding: 20rpx 24rpx;
+  border-radius: 16rpx;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.04);
+}
+
+/* ===== 复选框 ===== */
+.checkbox {
+  flex-shrink: 0;
+  margin-right: 16rpx;
+}
+
+.checkbox-box {
+  width: 44rpx;
+  height: 44rpx;
+  border-radius: 50%;
+  border: 3rpx solid #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.checkbox-box.checked {
+  background: #4A6CF7;
+  border-color: #4A6CF7;
+}
+
+.checkbox-icon {
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.record-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.record-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+.record-file {
+  font-size: 24rpx;
+  color: #4A6CF7;
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  margin-right: 12rpx;
+}
+.record-scores { display: flex; gap: 16rpx; flex-shrink: 0; }
+.score { font-size: 24rpx; font-weight: 600; }
+.score.strict { color: #F44336; }
+.score.warm { color: #2ECC71; }
+
+.record-footer {
+  display: flex;
+  gap: 16rpx;
+  font-size: 22rpx;
+  color: #999;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.record-tag {
+  padding: 2rpx 12rpx;
+  background: #f0f0f0;
+  border-radius: 10rpx;
+}
+.detail-btn {
+  margin-left: auto;
+  color: #4A6CF7;
+  font-weight: 500;
+  padding: 4rpx 12rpx;
+  background: #E8ECF1;
+  border-radius: 12rpx;
+}
+
+/* ===== 管理栏 ===== */
+.manage-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  padding: 20rpx 30rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2rpx solid #f0f0f0;
+  z-index: 100;
+  box-shadow: 0 -4rpx 16rpx rgba(0,0,0,0.06);
+}
+
+.manage-info {
+  font-size: 28rpx;
+  color: #1A2332;
+}
+
+.manage-count {
+  font-weight: 600;
+}
+
+.manage-actions {
+  display: flex;
+  gap: 16rpx;
+}
+
+.manage-select-all {
+  padding: 12rpx 24rpx;
+  background: #E8ECF1;
+  border: none;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  color: #1A2332;
+}
+
+.manage-delete {
+  padding: 12rpx 32rpx;
+  background: #F44336;
+  border: none;
+  border-radius: 20rpx;
+  font-size: 26rpx;
+  color: #FFFFFF;
+}
+
+.manage-delete[disabled] {
+  opacity: 0.4;
+}
+
+/* ===== 空状态 ===== */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 80rpx 0;
+}
+.empty-icon { font-size: 80rpx; }
+.empty-text { font-size: 32rpx; color: #1A2332; margin-top: 20rpx; }
+.empty-hint { font-size: 24rpx; color: #999; margin-top: 12rpx; }
+
+/* ===== 底部按钮 ===== */
+.back-home-btn {
+  margin-top: 30rpx;
+  width: 100%;
+  padding: 24rpx 0;
+  background: #E8ECF1;
+  color: #1A2332;
+  border: none;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+}

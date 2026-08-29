@@ -1,0 +1,296 @@
+/* pages/answer/answer.wxss */
+
+.container {
+  padding: 20rpx 30rpx 60rpx;
+  background: #F5F7FA;
+  min-height: 100vh;
+}
+
+.header {
+  padding: 20rpx 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1A2332;
+}
+
+/* ===== 模式选择器 ===== */
+.mode-selector {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  padding: 10rpx 16rpx;
+  background: #f0f0f0;
+  border-radius: 20rpx;
+  flex-shrink: 0;
+}
+
+.mode-label {
+  font-size: 24rpx;
+  color: #1A2332;
+  font-weight: 500;
+}
+
+.mode-arrow {
+  font-size: 18rpx;
+  color: #999;
+}
+
+/* ===== 模式弹窗 ===== */
+.mode-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 999;
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.mode-popup.show {
+  display: flex;
+}
+
+.mode-popup-content {
+  width: 600rpx;
+  background: #FFFFFF;
+  border-radius: 20rpx;
+  padding: 32rpx;
+  animation: popIn 0.2s ease-out;
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.mode-popup-title {
+  font-size: 32rpx;
+  font-weight: 700;
+  color: #1A2332;
+  text-align: center;
+  margin-bottom: 24rpx;
+}
+
+.mode-option {
+  display: flex;
+  align-items: center;
+  padding: 20rpx 16rpx;
+  border-radius: 12rpx;
+  margin-bottom: 8rpx;
+}
+
+.mode-option:active {
+  background: #f5f5f5;
+}
+
+.mode-option-icon {
+  font-size: 36rpx;
+  margin-right: 16rpx;
+}
+
+.mode-option-info {
+  flex: 1;
+}
+
+.mode-option-name {
+  display: block;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #1A2332;
+}
+
+.mode-option-desc {
+  display: block;
+  font-size: 22rpx;
+  color: #999;
+  margin-top: 4rpx;
+}
+
+.mode-option-check {
+  font-size: 32rpx;
+  color: #4A6CF7;
+  font-weight: 700;
+}
+
+.mode-popup-close {
+  text-align: center;
+  padding: 20rpx 0;
+  margin-top: 16rpx;
+  border-top: 1px solid #f0f0f0;
+  font-size: 28rpx;
+  color: #999;
+}
+
+/* ===== 计时器容器 ===== */
+.timer-container {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 16rpx 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  padding: 16rpx 0;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.timer.stopped {
+  background: #f5f5f5;
+  color: #6B7A8F;
+}
+
+.timer.running {
+  background: #FFF3E0;
+  color: #E65100;
+  animation: pulse 1s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.timer-icon {
+  font-size: 32rpx;
+}
+
+.timer-text {
+  font-size: 40rpx;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-mode-label {
+  font-size: 20rpx;
+  color: #999;
+  font-weight: 400;
+}
+
+/* ===== 计时控制按钮（调小版） ===== */
+.timer-controls {
+  display: flex;
+  gap: 12rpx;
+  margin-top: 8rpx;
+  justify-content: center;
+}
+
+.timer-btn {
+  flex: 1;
+  max-width: 160rpx;
+  padding: 8rpx 0;
+  border: none;
+  border-radius: 20rpx;
+  font-size: 24rpx;
+  font-weight: 500;
+  text-align: center;
+}
+
+.timer-btn[disabled] {
+  opacity: 0.4;
+}
+
+.start-btn {
+  background: #4A6CF7;
+  color: #FFFFFF;
+}
+
+.stop-btn {
+  background: #F44336;
+  color: #FFFFFF;
+}
+
+.reset-btn {
+  background: #f0f0f0;
+  color: #666;
+}
+
+/* ===== 不计时提示 ===== */
+.timer-off-hint {
+  background: #f5f5f5;
+  border-radius: 12rpx;
+  padding: 24rpx;
+  text-align: center;
+  margin-bottom: 16rpx;
+}
+
+.hint-text {
+  font-size: 26rpx;
+  color: #999;
+}
+
+/* ===== 其他样式 ===== */
+.question-box {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-top: 20rpx;
+}
+
+.question-label {
+  display: block;
+  font-size: 24rpx;
+  color: #6B7A8F;
+  margin-bottom: 12rpx;
+}
+
+.question-content {
+  display: block;
+  font-size: 30rpx;
+  color: #1A2332;
+  line-height: 1.8;
+}
+
+.answer-box {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin-top: 24rpx;
+}
+
+.answer-label {
+  display: block;
+  font-size: 24rpx;
+  color: #6B7A8F;
+  margin-bottom: 12rpx;
+}
+
+.answer-input {
+  width: 100%;
+  height: 300rpx;
+  font-size: 28rpx;
+  padding: 16rpx;
+  background: #F5F7FA;
+  border-radius: 10rpx;
+  box-sizing: border-box;
+}
+
+.primary-btn {
+  margin-top: 40rpx;
+  background: linear-gradient(135deg, #4A6CF7, #6A4CF7);
+  color: #FFFFFF;
+  border: none;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  font-weight: 600;
+  padding: 28rpx 0;
+  width: 100%;
+}
+
+.primary-btn[disabled] {
+  opacity: 0.5;
+}

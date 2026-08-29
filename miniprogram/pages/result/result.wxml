@@ -1,0 +1,43 @@
+<!-- pages/result/result.wxml -->
+
+<view class="container">
+  <view class="header">
+    <text class="title">📊 评分结果</text>
+  </view>
+
+  <!-- 分数对比 -->
+  <view class="score-summary">
+    <view class="score-box strict">
+      <text class="score-label">👨‍🏫 严苛评委</text>
+      <text class="score-number">{{strictScore || 'N/A'}}</text>
+      <text class="score-unit">分</text>
+    </view>
+    <view class="score-box warm">
+      <text class="score-label">👩‍🏫 温和评委</text>
+      <text class="score-number">{{warmScore || 'N/A'}}</text>
+      <text class="score-unit">分</text>
+    </view>
+  </view>
+
+  <!-- 严苛反馈 -->
+  <view class="feedback-section">
+    <text class="feedback-title">👨‍🏫 严苛评委反馈</text>
+    <view class="feedback-box strict-bg">
+      <text class="feedback-text">{{strictFeedback || '暂无'}}</text>
+    </view>
+  </view>
+
+  <!-- 温和反馈 -->
+  <view class="feedback-section">
+    <text class="feedback-title">👩‍🏫 温和评委反馈</text>
+    <view class="feedback-box warm-bg">
+      <text class="feedback-text">{{warmFeedback || '暂无'}}</text>
+    </view>
+  </view>
+
+  <!-- 按钮 -->
+  <view class="btn-group">
+    <button class="report-btn" bindtap="generateReport">📋 生成报告</button>
+    <button class="back-btn" bindtap="backHome">🏠 返回首页</button>
+  </view>
+</view>

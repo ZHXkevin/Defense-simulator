@@ -1,0 +1,11 @@
+{
+  "name": "parseDocument",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "officeparser": "^4.0.0",
+    "pdf-parse": "^1.1.1"
+  }
+}

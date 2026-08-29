@@ -1,0 +1,57 @@
+<!-- pages/report/detail/detail.wxml -->
+
+<view class="container">
+  <!-- 顶部 -->
+  <view class="header">
+    <text class="title">📋 报告详情</text>
+    <text class="back-link" bindtap="back">‹ 返回</text>
+  </view>
+
+  <!-- 基本信息 -->
+  <view class="info-card">
+    <text class="info-item">📄 {{record.file_name || '未命名文件'}}</text>
+    <text class="info-item">📌 {{record.mode || '未知模式'}} · {{record.difficulty || '中等'}}</text>
+    <text class="info-item">⏱️ {{record.create_time || '未知时间'}}</text>
+    <text class="info-item" wx:if="{{record.time_used >= 0}}">⏱️ 用时：{{record.time_used}}秒</text>
+  </view>
+
+  <!-- 双评分 -->
+  <view class="score-card">
+    <view class="score-box strict">
+      <text class="score-label">👨‍🏫 严苛评委</text>
+      <text class="score-number">{{record.strict_score || 'N/A'}}</text>
+      <text class="score-unit">分</text>
+    </view>
+    <view class="score-box warm">
+      <text class="score-label">👩‍🏫 温和评委</text>
+      <text class="score-number">{{record.warm_score || 'N/A'}}</text>
+      <text class="score-unit">分</text>
+    </view>
+  </view>
+
+  <!-- 问题 -->
+  <view class="section-card">
+    <text class="section-title">📖 问题</text>
+    <text class="section-content">{{record.question || '无'}}</text>
+  </view>
+
+  <!-- 回答 -->
+  <view class="section-card">
+    <text class="section-title">✏️ 你的回答</text>
+    <text class="section-content">{{record.answer || '无'}}</text>
+  </view>
+
+  <!-- 严苛反馈 -->
+  <view class="section-card strict-bg">
+    <text class="section-title">👨‍🏫 严苛评委反馈</text>
+    <text class="section-content">{{record.strict_feedback || '无'}}</text>
+  </view>
+
+  <!-- 温和反馈 -->
+  <view class="section-card warm-bg">
+    <text class="section-title">👩‍🏫 温和评委反馈</text>
+    <text class="section-content">{{record.warm_feedback || '无'}}</text>
+  </view>
+
+  <button class="back-btn" bindtap="back">返回历史记录</button>
+</view>

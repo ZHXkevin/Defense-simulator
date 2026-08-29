@@ -1,0 +1,72 @@
+/* pages/report/detail/detail.wxss */
+
+.container {
+  padding: 20rpx 30rpx 60rpx;
+  background: #F5F7FA;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 0;
+}
+.title { font-size: 36rpx; font-weight: 700; color: #1A2332; }
+.back-link { font-size: 28rpx; color: #4A6CF7; font-weight: 500; }
+
+.info-card {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 16rpx;
+}
+.info-item { display: block; font-size: 26rpx; color: #1A2332; line-height: 1.8; }
+
+.score-card {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+.score-box {
+  flex: 1;
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  text-align: center;
+}
+.score-box.strict .score-number { color: #F44336; }
+.score-box.warm .score-number { color: #2ECC71; }
+.score-label { font-size: 24rpx; color: #6B7A8F; }
+.score-number { font-size: 48rpx; font-weight: 700; }
+.score-unit { font-size: 24rpx; color: #999; }
+
+.section-card {
+  background: #FFFFFF;
+  border-radius: 16rpx;
+  padding: 20rpx 24rpx;
+  margin-bottom: 16rpx;
+}
+.section-card.strict-bg { border-left: 6rpx solid #F44336; }
+.section-card.warm-bg { border-left: 6rpx solid #2ECC71; }
+.section-title { font-size: 26rpx; font-weight: 600; color: #1A2332; }
+.section-content {
+  display: block;
+  font-size: 28rpx;
+  color: #333;
+  line-height: 1.8;
+  margin-top: 8rpx;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.back-btn {
+  margin-top: 20rpx;
+  background: #E8ECF1;
+  color: #1A2332;
+  border: none;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  padding: 24rpx 0;
+  width: 100%;
+}

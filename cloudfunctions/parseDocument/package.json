@@ -1,0 +1,9 @@
+{
+  "name": "parseDocument",
+  "version": "1.0.0",
+  "dependencies": {
+    "wx-server-sdk": "latest",
+    "officeparser": "^4.0.0",
+    "pdf-parse": "^1.1.1"
+  }
+}

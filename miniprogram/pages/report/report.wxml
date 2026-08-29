@@ -1,0 +1,180 @@
+<!-- pages/report/report.wxml -->
+<view class="report-page">
+  
+  <!-- 顶部 Header -->
+  <view class="report-header">
+    <view class="header-bg"></view>
+    <text class="header-title">答辩分析报告</text>
+    <text class="header-sub">基于 AI 双维度深度评估</text>
+  </view>
+
+  <!-- 综合评分卡片 -->
+  <view class="main-card">
+    <view class="score-circle-wrap">
+      <view class="score-circle">
+        <text class="score-num">{{avgScore}}</text>
+        <text class="score-label">综合评分</text>
+      </view>
+      <view class="grade-badge" style="background: {{grade.color}}20; color: {{grade.color}}; border: 2rpx solid {{grade.color}}40;">
+        {{grade.text}}
+      </view>
+    </view>
+    
+    <view class="score-compare-row">
+      <view class="compare-box strict-side">
+        <text class="compare-score">{{strictScore}}</text>
+        <text class="compare-tag">专家评分</text>
+        <view class="compare-bar-bg">
+          <view class="compare-bar-fill strict-fill" style="width: {{strictScore}}%"></view>
+        </view>
+      </view>
+      
+      <view class="compare-divider">
+        <view class="diff-badge">差{{Math.abs(strictScore - warmScore)}}分</view>
+      </view>
+      
+      <view class="compare-box warm-side">
+        <text class="compare-score">{{warmScore}}</text>
+        <text class="compare-tag">导师评分</text>
+        <view class="compare-bar-bg">
+          <view class="compare-bar-fill warm-fill" style="width: {{warmScore}}%"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 评价一致性分析 -->
+  <view class="section-card">
+    <view class="section-header">
+      <view class="section-icon" style="background: #4f46e520; color: #4f46e5;">⚖</view>
+      <text class="section-title">评价一致性分析</text>
+    </view>
+    <view class="diff-progress-wrap">
+      <view class="diff-labels">
+        <text>高度一致</text>
+        <text>严重分歧</text>
+      </view>
+      <view class="diff-track">
+        <view class="diff-thumb" style="left: {{diffPercent}}%; background: {{diffPercent > 50 ? '#ef4444' : '#10b981'}};"></view>
+      </view>
+    </view>
+    <view class="diff-desc">{{diffAnalysis}}</view>
+  </view>
+
+  <!-- 五维能力分析 -->
+  <view class="section-card">
+    <view class="section-header">
+      <view class="section-icon" style="background: #8b5cf620; color: #8b5cf6;">◈</view>
+      <text class="section-title">能力维度分析</text>
+    </view>
+    <view class="dimension-list">
+      <block wx:for="{{dimensions}}" wx:key="name">
+        <view class="dimension-row">
+          <view class="dim-info">
+            <text class="dim-name">{{item.name}}</text>
+            <text class="dim-desc">{{item.desc}}</text>
+          </view>
+          <view class="dim-right">
+            <text class="dim-score" style="color: {{item.color}};">{{item.score}}</text>
+            <view class="dim-bar-bg">
+              <view class="dim-bar-fill" style="width: {{item.score}}%; background: {{item.color}};"></view>
+            </view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 详细评语（Tab 切换） -->
+  <view class="section-card">
+    <view class="section-header">
+      <view class="section-icon" style="background: #f59e0b20; color: #f59e0b;">✎</view>
+      <text class="section-title">详细评语</text>
+    </view>
+    
+    <view class="tab-bar">
+      <view class="tab-item {{activeTab === 'strict' ? 'active' : ''}}" data-tab="strict" bindtap="switchTab">
+        <text class="tab-dot" style="background: #ef4444;"></text>
+        <text>专家视角</text>
+      </view>
+      <view class="tab-item {{activeTab === 'warm' ? 'active' : ''}}" data-tab="warm" bindtap="switchTab">
+        <text class="tab-dot" style="background: #f59e0b;"></text>
+        <text>导师视角</text>
+      </view>
+    </view>
+
+    <view class="feedback-panel" wx:if="{{activeTab === 'strict'}}">
+      <view class="panel-badge" style="background: #fef2f2; color: #ef4444;">严格评审</view>
+      <text class="feedback-text">{{strictFeedback}}</text>
+    </view>
+    
+    <view class="feedback-panel warm-panel" wx:if="{{activeTab === 'warm'}}">
+      <view class="panel-badge" style="background: #fffbeb; color: #f59e0b;">温暖评审</view>
+      <text class="feedback-text">{{warmFeedback}}</text>
+    </view>
+  </view>
+
+  <!-- 评分依据（智能摘要版） -->
+  <view class="section-card" wx:if="{{standardSummary || otherInstruction}}">
+    <view class="section-header">
+      <view class="section-icon" style="background: #6366f120; color: #6366f1;">📋</view>
+      <text class="section-title">评分依据</text>
+    </view>
+    
+    <view wx:if="{{standardSummary}}" class="info-block">
+      <view class="info-label-row">
+        <text class="info-label">评分标准核心条款</text>
+        <text class="info-tag">已自动提取相关项</text>
+      </view>
+      <text class="info-text" style="font-size: 26rpx;">{{standardSummary}}</text>
+    </view>
+    
+    <view wx:if="{{otherInstruction}}" class="info-block" style="margin-top: 16rpx;">
+      <text class="info-label">补充说明 / 特殊要求</text>
+      <text class="info-text">{{otherInstruction}}</text>
+    </view>
+  </view>
+
+  <!-- 可提升方向 -->
+  <view class="section-card">
+    <view class="section-header">
+      <view class="section-icon" style="background: #10b98120; color: #10b981;">↑</view>
+      <text class="section-title">可提升方向</text>
+    </view>
+    <view class="improve-list">
+      <block wx:for="{{improvements}}" wx:key="index">
+        <view class="improve-item">
+          <view class="improve-icon-wrap" style="background: #10b98115;">
+            <text class="improve-icon">↗</text>
+          </view>
+          <text class="improve-text">{{item}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 具体修改建议 -->
+  <view class="section-card">
+    <view class="section-header">
+      <view class="section-icon" style="background: #3b82f620; color: #3b82f6;">✓</view>
+      <text class="section-title">具体修改建议</text>
+    </view>
+    <view class="suggest-list">
+      <block wx:for="{{suggestions}}" wx:key="index">
+        <view class="suggest-item">
+          <view class="suggest-num-wrap" style="background: {{index < 2 ? '#4f46e5' : '#94a3b8'}};">
+            <text class="suggest-num">{{index + 1}}</text>
+          </view>
+          <text class="suggest-text">{{item}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <!-- 底部操作区 -->
+  <view class="footer-gap"></view>
+  <view class="footer-actions">
+    <button class="btn-share" open-type="share">分享报告</button>
+  </view>
+
+</view>

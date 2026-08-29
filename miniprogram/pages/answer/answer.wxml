@@ -1,0 +1,69 @@
+<!-- pages/answer/answer.wxml -->
+
+<view class="container">
+  <view class="header">
+    <text class="title">💬 回答问题</text>
+    <!-- ===== 三种模式切换 ===== -->
+    <view class="mode-selector" bindtap="toggleModeSelector">
+      <text class="mode-label">{{modeLabels[modeIndex]}}</text>
+      <text class="mode-arrow">▼</text>
+    </view>
+  </view>
+
+  <!-- ===== 模式选择弹窗 ===== -->
+  <view class="mode-popup {{showModePopup ? 'show' : ''}}" bindtap="closeModePopup">
+    <view class="mode-popup-content" catchtap="stopPropagation">
+      <view class="mode-popup-title">选择计时模式</view>
+      <view class="mode-option" wx:for="{{modeOptions}}" wx:key="index" bindtap="selectMode" data-index="{{index}}">
+        <text class="mode-option-icon">{{item.icon}}</text>
+        <view class="mode-option-info">
+          <text class="mode-option-name">{{item.name}}</text>
+          <text class="mode-option-desc">{{item.desc}}</text>
+        </view>
+        <view class="mode-option-check" wx:if="{{modeIndex === index}}">✓</view>
+      </view>
+      <view class="mode-popup-close" bindtap="closeModePopup">取消</view>
+    </view>
+  </view>
+
+  <!-- ===== 计时器显示（仅模式1和模式2显示） ===== -->
+  <view class="timer-container" wx:if="{{modeIndex >= 1}}">
+    <view class="timer {{isRunning ? 'running' : 'stopped'}}">
+      <text class="timer-icon">⏱️</text>
+      <text class="timer-text">{{timerDisplay}}</text>
+      <text class="timer-mode-label">{{modeIndex === 1 ? '（仅自己查看）' : '（将传给导师）'}}</text>
+    </view>
+
+    <!-- 计时控制按钮 -->
+    <view class="timer-controls">
+      <button class="timer-btn start-btn" bindtap="startTimer" disabled="{{isRunning || isFinished}}">
+        ▶ 开始
+      </button>
+      <button class="timer-btn stop-btn" bindtap="stopTimer" disabled="{{!isRunning}}">
+        ⏹ 停止
+      </button>
+      <button class="timer-btn reset-btn" bindtap="resetTimer" disabled="{{isRunning}}">
+        ↺ 重置
+      </button>
+    </view>
+  </view>
+
+  <!-- ===== 不计时提示 ===== -->
+  <view class="timer-off-hint" wx:else>
+    <text class="hint-text">⏱️ 不计时模式，自由练习</text>
+  </view>
+
+  <view class="question-box">
+    <text class="question-label">📖 当前问题</text>
+    <text class="question-content">{{question}}</text>
+  </view>
+
+  <view class="answer-box">
+    <text class="answer-label">✏️ 你的回答</text>
+    <textarea class="answer-input" value="{{answer}}" bindinput="onAnswerInput" placeholder="请输入你的回答..."maxlength="-1" />
+  </view>
+
+  <button class="primary-btn" bindtap="submitAnswer" disabled="{{loading}}">
+    {{loading ? '⏳ 评分中...' : '📊 提交评分'}}
+  </button>
+</view>

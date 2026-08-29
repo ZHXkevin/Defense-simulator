@@ -1,0 +1,86 @@
+<!-- pages/history/history.wxml -->
+
+<view class="container">
+  <!-- 顶部 -->
+  <view class="header">
+    <view class="header-left">
+      <text class="title">📚 历史记录</text>
+      <text class="count">共 {{records.length}} 条</text>
+    </view>
+    <!-- ===== 右上角管理按钮 ===== -->
+    <view class="header-actions">
+      <text class="manage-btn" bindtap="toggleManageMode">
+        {{isManageMode ? '取消' : '管理'}}
+      </text>
+    </view>
+  </view>
+
+  <!-- 统计卡片 -->
+  <view class="stats" wx:if="{{records.length > 0}}">
+    <view class="stat-item">
+      <text class="stat-number">{{avgStrictScore}}</text>
+      <text class="stat-label">平均严苛分</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-number">{{avgWarmScore}}</text>
+      <text class="stat-label">平均温和分</text>
+    </view>
+    <view class="stat-item">
+      <text class="stat-number">{{records.length}}</text>
+      <text class="stat-label">练习次数</text>
+    </view>
+  </view>
+
+  <!-- ===== 管理模式下底部操作栏 ===== -->
+  <view class="manage-bar" wx:if="{{isManageMode && records.length > 0}}">
+    <view class="manage-info">
+      <text class="manage-count">已选 {{selectedCount}} 条</text>
+    </view>
+    <view class="manage-actions">
+      <button class="manage-select-all" bindtap="selectAll">{{isAllSelected ? '取消全选' : '全选'}}</button>
+      <button class="manage-delete" bindtap="deleteSelected" disabled="{{selectedCount === 0}}">
+        删除 {{selectedCount > 0 ? '(' + selectedCount + ')' : ''}}
+      </button>
+    </view>
+  </view>
+
+  <!-- 记录列表 -->
+  <view class="record-list" wx:if="{{records.length > 0}}">
+    <view class="record-item" wx:for="{{records}}" wx:key="_id" bindtap="toggleSelect" data-id="{{item._id}}">
+      <!-- ===== 管理模式下的复选框 ===== -->
+      <view class="checkbox" wx:if="{{isManageMode}}">
+        <view class="checkbox-box {{item.checked ? 'checked' : ''}}">
+          <text class="checkbox-icon" wx:if="{{item.checked}}">✓</text>
+        </view>
+      </view>
+      
+      <view class="record-content" style="{{isManageMode ? 'padding-left: 16rpx;' : ''}}">
+        <view class="record-header">
+          <text class="record-file">{{item.file_name || '未命名文件'}}</text>
+          <view class="record-scores">
+            <text class="score strict">{{item.strict_score || 'N/A'}}分</text>
+            <text class="score warm">{{item.warm_score || 'N/A'}}分</text>
+          </view>
+        </view>
+        
+        <view class="record-footer">
+          <text class="record-time">⏱️ {{item.create_time || '未知时间'}}</text>
+          <text class="record-mode">{{item.mode || '未知模式'}}</text>
+          <text class="record-tag" wx:if="{{item.time_used >= 0}}">{{item.time_used}}秒</text>
+          <!-- 非管理模式下显示查看详情 -->
+          <text class="detail-btn" wx:if="{{!isManageMode}}" catchtap="viewDetail" data-id="{{item._id}}">查看详情 ›</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty" wx:else>
+    <text class="empty-icon">📭</text>
+    <text class="empty-text">暂无训练记录</text>
+    <text class="empty-hint">完成一次训练后，记录将自动保存</text>
+  </view>
+
+  <!-- 返回首页 -->
+  <button class="back-home-btn" bindtap="backHome">🏠 返回首页</button>
+</view>

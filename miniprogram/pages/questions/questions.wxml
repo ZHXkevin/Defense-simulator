@@ -1,0 +1,24 @@
+<!-- pages/questions/questions.wxml -->
+
+<view class="container">
+  <view class="header">
+    <text class="title">📝 答辩问题</text>
+    <text class="subtitle">共 {{questions.length}} 题</text>
+  </view>
+
+  <!-- 问题列表 -->
+  <view class="question-list">
+    <view class="question-item" wx:for="{{questions}}" wx:key="index" bindtap="selectQuestion" data-index="{{index}}">
+      <view class="question-number">Q{{index + 1}}</view>
+      <view class="question-content">{{item}}</view>
+      <view class="arrow">›</view>
+    </view>
+  </view>
+
+  <!-- 提示 -->
+  <view class="tip" wx:if="{{questions.length === 0}}">
+    <text>⚠️ 暂无问题，请返回首页生成</text>
+  </view>
+
+  <button class="back-btn" bindtap="backHome">🏠 返回首页</button>
+</view>
